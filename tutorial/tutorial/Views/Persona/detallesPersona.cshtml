@@ -1,0 +1,53 @@
+﻿@model tutorial.Models.Persona
+
+@{
+    ViewBag.Title = "Detalles Persona";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalles de la Persona</h2>
+
+<div>
+    <h4>Persona</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Nombre Completo
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombreCompleto)
+        </dd>
+               
+        <dt>
+            Sexo
+        </dt>
+
+        <dd>
+            
+             @Html.DisplayFor(model => model.sexo)
+                                                      
+         </dd>
+
+        <dt>
+            Edad
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.edad)
+        </dd>
+
+        <dt>
+            Fecha Registración
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaRegistro)
+        </dd>
+                
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "editarPersona", new { id = Model.id }) |
+    @Html.ActionLink("Regresar", "Index")
+</p>

@@ -1,0 +1,90 @@
+﻿@model IEnumerable<tutorial.Models.PersonaCE>
+
+@{
+    ViewBag.Title = "Lista de Personas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Personas</h2>
+
+<p>
+    @Html.ActionLink("Crear Nueva Persona", "crearPersona")
+</p>
+<table class="table">  
+    <tr>
+        <th>
+            Nombre Completo
+        </th>
+        <th>
+            Sexo
+        </th>
+        <th>
+            Edad
+        </th>
+        <th>
+            Ciudad
+        </th>
+        <th>
+            Fecha Registración
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.nombreCompleto)
+    </td>
+    <td>
+        @*modificamos como presenta el sexo en la lista*@
+        @{
+            if (item.sexo == "M")
+            {
+                <span>Masculino</span>
+            }
+            else
+            {
+                <span>Femenino</span>
+            }
+        }
+
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.edad)
+    </td>
+    <td>
+        @item.nombreCiudad
+    </td>
+    <td>
+        @item.fechaRegistro.ToShortDateString()
+    </td>
+    <td>
+        @Html.ActionLink("Editar", "editarPersona", new { id = item.id }) |
+        @Html.ActionLink("Detalles", "detallesPersona", new { id = item.id }) |
+        @Html.ActionLink("Eliminar", "eliminarPersona", new { id = item.id })
+    </td>
+</tr>
+}
+
+</table>
+
+@section scripts{
+
+    <script>
+
+        $(".aeliminarPersona").onclick(function (event) {
+            var mensaje = confirm('Está seguro de eliminar ?');
+            
+            if (mensaje) {
+
+                event.preventDefault();
+
+            }
+            
+            }
+
+        });
+
+    </script>
+
+}

@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BDtutorialModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="BDtutorial" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Ciudad" EntityType="BDtutorialModel.Ciudad" />
+    <EntitySet Name="Persona" EntityType="BDtutorialModel.Persona" />
+    <AssociationSet Name="FK_Persona_Ciudad" Association="BDtutorialModel.FK_Persona_Ciudad">
+      <End Role="Ciudad" EntitySet="Ciudad" />
+      <End Role="Persona" EntitySet="Persona" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Ciudad">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombreCiudad" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Persona" Relationship="BDtutorialModel.FK_Persona_Ciudad" FromRole="Ciudad" ToRole="Persona" />
+  </EntityType>
+  <EntityType Name="Persona">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombres" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="apellidos" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="sexo" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="edad" Type="Int32" Nullable="false" />
+    <Property Name="fechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="codCiudad" Type="Int32" />
+    <NavigationProperty Name="Ciudad" Relationship="BDtutorialModel.FK_Persona_Ciudad" FromRole="Persona" ToRole="Ciudad" />
+  </EntityType>
+  <Association Name="FK_Persona_Ciudad">
+    <End Type="BDtutorialModel.Ciudad" Role="Ciudad" Multiplicity="0..1" />
+    <End Type="BDtutorialModel.Persona" Role="Persona" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ciudad">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Persona">
+        <PropertyRef Name="codCiudad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
