@@ -20,30 +20,30 @@ namespace tutorial.Controllers
                 {
 
                     // De esta forma se mapean datos de distintas tablas usando consultas SQL
-                    string sql = @"
-                            select p.id as id, p.nombres, p.apellidos, p.sexo, p.edad, p.fechaRegistro, c.nombreCiudad as nombreCiudad
-                            from Persona p
-                            inner join Ciudad c on c.id = p.codCiudad"; // Termina la consulta SQL
-                    return View(bd.Database.SqlQuery<PersonaCE>(sql).ToList()); // Muestra los datos encontrados a traves de la consulta SQL 
-                    
+                    //string sql = @"
+                    //        select p.id as id, p.nombres, p.apellidos, p.sexo, p.edad, p.fechaRegistro, c.nombreCiudad as nombreCiudad
+                    //        from Persona p
+                    //        inner join Ciudad c on c.id = p.codCiudad"; // Termina la consulta SQL
+                    //return View(bd.Database.SqlQuery<PersonaCE>(sql).ToList()); // Muestra los datos encontrados a traves de la consulta SQL 
+
                     // De esta forma se mapean datos de distintas tablas, segun el modelo fijado en PersonaCE (ver clase PersonaCE)
-                    //var data = from p in bd.Persona
-                    //           join c in bd.Ciudad on p.codCiudad equals c.id
-                    //           select new PersonaCE()
-                    //           {
+                    var data = from p in bd.Persona
+                               join c in bd.Ciudad on p.codCiudad equals c.id
+                               select new PersonaCE()
+                               {
 
-                    //               id = p.id,
-                    //               nombres = p.nombres,
-                    //               apellidos = p.apellidos,
-                    //               sexo = p.sexo,
-                    //               edad = p.edad,
-                    //               nombreCiudad = c.nombreCiudad,
-                    //               fechaRegistro = p.fechaRegistro                                   
+                                   id = p.id,
+                                   nombres = p.nombres,
+                                   apellidos = p.apellidos,
+                                   sexo = p.sexo,
+                                   edad = p.edad,
+                                   nombreCiudad = c.nombreCiudad,
+                                   fechaRegistro = p.fechaRegistro
 
-                    //           };
+                               };
 
                     //List<Persona> listaPersonas= bd.Persona.Where(p=> p.edad>25).ToList(); // Muestra aquella personas que sean mayores de 25 años
-                    //return View(data.ToList()); // Se pasan los datos buscados anteriormente a la vista a traves de var data!
+                    return View(data.ToList()); // Se pasan los datos buscados anteriormente a la vista a traves de var data!
 
 
                 }
